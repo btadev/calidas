@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CALIDAS Information Slideshow</title>
+  <style>
+    body {
+      margin: 0;
+      background: #000;
+      font-family: sans-serif;
+      overflow-x: hidden;
+    }
+
+    .slideshow-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .slideshow-container img {
+      width: 100%;
+      height: 100vh;
+      object-fit: cover;
+      display: block;
+    }
+
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 48px;
+      color: white;
+      background-color: rgba(0,0,0,0.3);
+      padding: 10px 20px;
+      cursor: pointer;
+      user-select: none;
+      z-index: 10;
+      border-radius: 4px;
+    }
+
+    .nav-arrow:hover {
+      background-color: rgba(0,0,0,0.6);
+    }
+
+    .nav-left {
+      left: 20px;
+    }
+
+    .nav-right {
+      right: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="slideshow-container">
+  <div class="nav-arrow nav-left" onclick="changeSlide(-1)">&#10094;</div>
+  <div class="nav-arrow nav-right" onclick="changeSlide(1)">&#10095;</div>
+  <img id="slideshow" src="https://picsum.photos/id/1015/1920/1080" alt="Slideshow">
+</div>
+
+<script>
+  const images = [
+    "https://raw.githubusercontent.com/btadev/calidas/main/information/english/images/Room%20Introduce_QR%20code-01.jpg",
+    "https://raw.githubusercontent.com/btadev/calidas/main/information/english/images/Room%20Introduce_QR%20code-01.jpg",
+    "https://raw.githubusercontent.com/btadev/calidas/main/information/english/images/Room%20Introduce_QR%20code-01.jpg",
+    "https://raw.githubusercontent.com/btadev/calidas/main/information/english/images/Room%20Introduce_QR%20code-01.jpg",
+    "https://raw.githubusercontent.com/btadev/calidas/main/information/english/images/Room%20Introduce_QR%20code-01.jpg",
+    "https://raw.githubusercontent.com/btadev/calidas/main/information/english/images/Room%20Introduce_QR%20code-01.jpg",
+    "https://raw.githubusercontent.com/btadev/calidas/main/information/english/images/Room%20Introduce_QR%20code-01.jpg",
+    "https://raw.githubusercontent.com/btadev/calidas/main/information/english/images/Room%20Introduce_QR%20code-01.jpg",
+    "https://raw.githubusercontent.com/btadev/calidas/main/information/english/images/Room%20Introduce_QR%20code-01.jpg"
+  ];
+  let currentIndex = 0;
+
+  function changeSlide(direction) {
+    currentIndex = (currentIndex + direction + images.length) % images.length;
+    document.getElementById('slideshow').src = images[currentIndex];
+  }
+</script>
+
+</body>
+</html>
