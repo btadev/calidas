@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -42,10 +42,13 @@
       user-select: none;
       z-index: 10;
       border-radius: 4px;
+      opacity: 1;
+      transition: opacity 0.5s ease;
     }
 
-    .nav-arrow:hover {
-      background-color: rgba(0,0,0,0.6);
+    .nav-arrow.hidden {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .nav-left {
@@ -59,9 +62,9 @@
 </head>
 <body>
 
-<div class="slideshow-container">
-  <div class="nav-arrow nav-left" onclick="changeSlide(-1)">&#10094;</div>
-  <div class="nav-arrow nav-right" onclick="changeSlide(1)">&#10095;</div>
+<div class="slideshow-container" id="slideshow-container">
+  <div class="nav-arrow nav-left" id="nav-left" onclick="changeSlide(-1)">&#10094;</div>
+  <div class="nav-arrow nav-right" id="nav-right" onclick="changeSlide(1)">&#10095;</div>
   <img id="slideshow" src="https://raw.githubusercontent.com/btadev/calidas/main/information/english/images/Room%20Introduce_QR%20code-01.jpg" alt="Slideshow">
 </div>
 
@@ -79,10 +82,35 @@
   ];
   let currentIndex = 0;
 
+  const navLeft = document.getElementById('nav-left');
+  const navRight = document.getElementById('nav-right');
+  const container = document.getElementById('slideshow-container');
+
+  let hideTimeout;
+
   function changeSlide(direction) {
     currentIndex = (currentIndex + direction + images.length) % images.length;
     document.getElementById('slideshow').src = images[currentIndex];
   }
+
+  function showArrows() {
+    navLeft.classList.remove('hidden');
+    navRight.classList.remove('hidden');
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(hideArrows, 3000);
+  }
+
+  function hideArrows() {
+    navLeft.classList.add('hidden');
+    navRight.classList.add('hidden');
+  }
+
+  // Hiện lại khi di chuột hoặc chạm vào container
+  container.addEventListener('mousemove', showArrows);
+  container.addEventListener('touchstart', showArrows);
+
+  // Ẩn mũi tên sau 3 giây nếu không thao tác
+  showArrows(); // chạy ngay lần đầu
 </script>
 
 </body>
